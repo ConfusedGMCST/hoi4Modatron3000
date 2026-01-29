@@ -1,0 +1,4 @@
+# Main Window
+TITLE = "Modatron3000"
+WINDOW_SIZE_WIDTH = 850
+WINDOW_SIZE_HEIGHT = 600
