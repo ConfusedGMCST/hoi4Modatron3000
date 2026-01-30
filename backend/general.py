@@ -3,22 +3,34 @@ import config
 from PyQt6.QtWidgets import QFileDialog, QLabel, QWidget, QVBoxLayout
 
 def open_file_dialog(self, parent_object, layout):
-    file_dir, _ = QFileDialog.getOpenFileName(
+    folder_dir = QFileDialog.getExistingDirectory(
         self,
-        "Select a File",
-        "",  # Starting directory (empty = home)
-        "All Files (*);;Python Files (*.py);;Text Files (*.txt)"
+        "Select a Folder",
+        ""  # Starting directory (empty = home)
     )
-    if file_dir:
-        config.MOD_DIRECTORY = file_dir
-        print(f"Selected file: {file_dir}")
+    if folder_dir:
+        #Sets all the proper directory config variables
+        config.MOD_DIRECTORY = folder_dir
+        config.MOD_DESCRIPTOR_DIR = f'{folder_dir}\\descriptor.mod'
+        config.HISTORY_DIRECTORY = f'{folder_dir}\\history'
+        config.COMMON_DIRECTORY = f'{folder_dir}\\common'
 
-    selected_file_label = parent_object.findChild(QLabel, "selected_file_label")
+        with open(rf'{config.MOD_DESCRIPTOR_DIR}', 'r') as file:
+            config.MOD_DESCRIPTOR = file.readlines()
+
+        print(f"Selected file: {folder_dir}")
+
+    selected_folder_label = parent_object.findChild(QLabel, "selected_folder_label")
+
+    for i, v in enumerate(config.MOD_DESCRIPTOR):
+        line = v.split("\"")
+        if line[0] == 'supported_version=':
+            config.MOD_VERSION = line[1]
 
     try:
-        selected_file_label.setText(file_dir)
+        selected_folder_label.setText(f'{folder_dir}, Hoi4 version: {config.MOD_VERSION}')
     except AttributeError:
-        selected_file_label = QLabel(file_dir)
-        selected_file_label.setObjectName("selected_file_label")
-        layout.addWidget(selected_file_label)
+        selected_folder_label = QLabel(f'{folder_dir}, Hoi4 version: {config.MOD_VERSION}')
+        selected_folder_label.setObjectName("selected_folder_label")
+        layout.addWidget(selected_folder_label)
         return 0
