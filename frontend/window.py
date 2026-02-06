@@ -75,8 +75,13 @@ class Window(QWidget):
 
         country_existing_countries_list.addWidget(existing_countries_label)
         country_existing_sublist = QVBoxLayout()
-
+        
+        countries_load_search = create_line_edit(country_existing_countries_list, "Search")
+        countries_search_button = create_button(country_existing_countries_list, "Search", lambda: existing_country.search(countries_load_search.text()))
         countries_load_list = create_button(country_existing_countries_list, "Load Existing Countries", lambda: country.load_countries(country_existing_sublist))
+        country_name_input = create_line_edit(country_properties_layout, config.COUNTRY_NAME_TEXT)
+        country_tag_input = create_line_edit(country_properties_layout, config.COUNTRY_TAG_TEXT)
+        country_capitol_input = create_line_edit(country_properties_layout, config.COUNTRY_CAPITOL)
 
         country_existing_countries_list.addLayout(country_existing_sublist)
         country_properties_layout.addStretch()
