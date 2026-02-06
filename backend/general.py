@@ -14,6 +14,7 @@ def open_file_dialog(self, parent_object, layout):
         config.MOD_DESCRIPTOR_DIR = f'{folder_dir}\\descriptor.mod'
         config.HISTORY_DIRECTORY = f'{folder_dir}\\history'
         config.COMMON_DIRECTORY = f'{folder_dir}\\common'
+        config.LOCALISATION_DIRECTORY = f'{folder_dir}\\localisation'
 
         with open(rf'{config.MOD_DESCRIPTOR_DIR}', 'r') as file:
             config.MOD_DESCRIPTOR = file.readlines()

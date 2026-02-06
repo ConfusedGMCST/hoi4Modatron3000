@@ -83,6 +83,10 @@ class Window(QWidget):
         country_tag_input = create_line_edit(country_properties_layout, config.COUNTRY_TAG_TEXT)
         country_capitol_input = create_line_edit(country_properties_layout, config.COUNTRY_CAPITOL)
 
+        config.COUNTRY_CAPITOL_INPUT = country_capitol_input
+        config.COUNTRY_NAME_INPUT = country_name_input
+        config.COUNTRY_TAG_INPUT = country_tag_input
+
         country_existing_countries_list.addLayout(country_existing_sublist)
         country_properties_layout.addStretch()
         country_existing_countries_list.addStretch()
