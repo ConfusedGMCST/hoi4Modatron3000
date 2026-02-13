@@ -51,8 +51,8 @@ def set_tag(tag):
                 #Excuse the UNREADABILITY of this code, I apologize - all this does is separate the localisation file's line into several parts to extract the actual value we're looking for, the country name
         config.COUNTRY_NAME_INPUT.setText(config.COUNTRY_NAME_TEXT)
 
-def search(text):
+def search(text, widget):
     try:
-        print(config.COUNTRY_DICTIONARY[text])
+        widget.setText(config.COUNTRY_DICTIONARY[text])
     except KeyError:
         print("Invalid search!")

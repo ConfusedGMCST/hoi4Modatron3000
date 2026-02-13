@@ -46,6 +46,9 @@ class Window(QWidget):
         self.startup_label.setFont(label_font)
         general_tab_layout.addWidget(self.startup_label)
 
+        self.ideology_set = create_line_edit(general_tab_layout, "Neutral Ideology") #For Localisation Sake
+        self.ideology_set_button = create_button(general_tab_layout, "Set Ideologies", lambda: general.set_ideologies(self.ideology_set.text()))
+
         general_tab_layout.addStretch()
 
         create_button(general_tab_layout, "Import Mod", lambda: general.open_file_dialog(self, self.general_tab, general_tab_layout))
@@ -68,20 +71,21 @@ class Window(QWidget):
         country_tab_sub_layout_1.addLayout(country_properties_layout)
         country_tab_sub_layout_1.addLayout(country_existing_countries_list)
 
-        new_country_button = create_button(country_properties_layout, config.NEW_COUNTRY_BUTTON_TEXT, lambda: country.new_country(new_country_button))
-        existing_countries_label = QLabel("Existing Countries")
+        self.new_country_button = create_button(country_properties_layout, config.NEW_COUNTRY_BUTTON_TEXT, lambda: country.new_country(self.new_country_button))
+        self.existing_countries_label = QLabel("Existing Countries")
 
-        existing_countries_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.existing_countries_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        country_existing_countries_list.addWidget(existing_countries_label)
+        country_existing_countries_list.addWidget(self.existing_countries_label)
         country_existing_sublist = QVBoxLayout()
         
-        countries_load_search = create_line_edit(country_existing_countries_list, "Search")
-        countries_search_button = create_button(country_existing_countries_list, "Search", lambda: existing_country.search(countries_load_search.text()))
+        countries_load_search = create_line_edit(country_existing_countries_list, "Search") #Non-functional as of now
+        countries_search_button = create_button(country_existing_countries_list, "Search", lambda: existing_country.search(countries_load_search.text(), countries_load_search))
         countries_load_list = create_button(country_existing_countries_list, "Load Existing Countries", lambda: country.load_countries(country_existing_sublist))
-        country_name_input = create_line_edit(country_properties_layout, config.COUNTRY_NAME_TEXT)
+        country_name_input = create_line_edit(country_properties_layout, config.COUNTRY_NAME_TEXT) #Sets name for only neutrality ideology rn
         country_tag_input = create_line_edit(country_properties_layout, config.COUNTRY_TAG_TEXT)
         country_capitol_input = create_line_edit(country_properties_layout, config.COUNTRY_CAPITOL)
+        country_done_button = create_button(country_properties_layout, "Done", lambda: country.done_button(country_name_input, country_capitol_input, config.SELECTED_TAG))
 
         config.COUNTRY_CAPITOL_INPUT = country_capitol_input
         config.COUNTRY_NAME_INPUT = country_name_input

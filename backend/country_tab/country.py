@@ -34,3 +34,23 @@ def load_countries(parent_layout):
     config.COUNTRY_DICTIONARY = country_dict
     for key, value in country_dict.items():
         show(parent_layout, key, value)
+
+def done_button(name_input, capitol_input, tag):
+    data = []
+    with open(f'{config.LOCALISATION_DIRECTORY}\\country_{config.SELECTED_TAG}_l_{config.MOD_LANG}.yml', 'r') as file:
+        data = file.readlines()
+    with open(f'{config.LOCALISATION_DIRECTORY}\\country_{config.SELECTED_TAG}_l_{config.MOD_LANG}.yml', 'w') as file:
+        for i, v in enumerate(data):
+            if f"{config.SELECTED_TAG}_{config.NEUTRALITY_IDEOLOGY}: " in v:
+                file.write(f"{config.SELECTED_TAG}_{config.NEUTRALITY_IDEOLOGY}: \"{name_input.text()}\"\n")
+            else:
+                file.write(v)
+    with open(f'{config.COUNTRY_DIRECTORY}', 'r') as file:
+        data = file.readlines()
+    with open(f'{config.COUNTRY_DIRECTORY}', 'w') as file:
+        for i, v in enumerate(data):
+            if f"capital = {config.COUNTRY_CAPITOL}" in v:
+                file.write(f"capital = {capitol_input.text()}\n")
+            else:
+                file.write(v)
+    #next do tag input (lowk forget where I set tags but I'll thug it out)

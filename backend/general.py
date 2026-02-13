@@ -35,3 +35,6 @@ def open_file_dialog(self, parent_object, layout):
         selected_folder_label.setObjectName("selected_folder_label")
         layout.addWidget(selected_folder_label)
         return 0
+    
+def set_ideologies(text):
+    config.NEUTRALITY_IDEOLOGY = text
