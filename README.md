@@ -7,5 +7,5 @@ Current version 1.0.0
 
 TODO:
 --
---> Country tag editor
+--> Country tag editor <br>
 --> Abstractify the current country name editting system to make it applicable to all ideologies of the country
